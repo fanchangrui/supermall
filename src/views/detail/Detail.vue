@@ -1,12 +1,14 @@
 <template>
   <div id="detail">
-    <detail-nav-bar class="detail-nav"/>
+    <detail-nav-bar class="detail-nav" @titleClick="titleClick"/>
     <scroll class="content" ref="scroll">
       <detail-swiper :top-images="topImages"/>
-      <detail-base-info :goods="goods"/>
+      <detail-base-info ref="base" :goods="goods"/>
       <detail-shop-info :shop="shop"/>
       <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad"/>
-      <detail-param-info :param-info="paramInfo"/>
+      <detail-param-info ref="param" :param-info="paramInfo"/>
+      <detail-comment-info ref="comment" :comment-info="commentInfo"/>
+      <goods-list ref="list" :goods="recommends"/>
     </scroll>
   </div>
 </template>
@@ -18,10 +20,14 @@
   import DetailShopInfo from './childComps/DetailShopInfo'
   import DetailGoodsInfo from './childComps/DetailGoodsInfo'
   import DetailParamInfo from './childComps/DetailParamInfo'
+  import DetailCommentInfo from "views/detail/childComps/DetailCommentInfo";
 
   import Scroll from 'components/common/scroll/Scroll'
 
   import {getDetail, Goods, Shop, GoodsParam} from "network/detail";
+  import {getRecommend} from "network/detail";
+  import GoodsList from "components/content/goods/GoodsList";
+  import {debounce} from "common/utils";
 
   export default {
     name: "Detail",
@@ -32,7 +38,9 @@
       DetailShopInfo,
       DetailGoodsInfo,
       DetailParamInfo,
-      Scroll
+      Scroll,
+      DetailCommentInfo,
+      GoodsList
     },
     data() {
       return {
@@ -41,7 +49,12 @@
         goods: {},
         shop: {},
         detailInfo: {},
-        paramInfo: {}
+        paramInfo: {},
+        commentInfo:{},
+        recommends:[],
+        themeTopYs:[],
+        getThemeYopY:null
+
       }
     },
     created() {
@@ -53,6 +66,7 @@
         // 1.获取顶部的图片轮播数据
         console.log(res);
         const data = res.result;
+        console.log(data)
         this.topImages = data.itemInfo.topImages
 
         // 2.获取商品信息
@@ -66,11 +80,42 @@
 
         // 5.获取参数的信息
         this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule)
+
+        if(data.rate.cRate !== 0){
+          this.commentInfo = data.rate.list[0]
+        }
+
+        this.getThemeYopY = debounce(()=>{
+          this.themeTopYs.push(this.$refs.base.$el.offsetTop)
+          this.themeTopYs.push(this.$refs.param.$el.offsetTop)
+          this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
+          this.themeTopYs.push(this.$refs.list.$el.offsetTop)
+        },100)
+
+        getRecommend().then(res => {
+          this.recommends=res.data.list
+        })
+
+
+
+
+
+
+
       })
+    },
+    mounted() {
+
     },
     methods: {
       imageLoad() {
         this.$refs.scroll.refresh()
+        this.getThemeYopY()
+      },
+
+      titleClick(index) {
+
+        this.$refs.scroll.scrollTo(0,-this.themeTopYs[index],100)
       }
     }
   }

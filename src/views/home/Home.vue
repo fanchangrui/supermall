@@ -62,7 +62,8 @@
         isShowBackTop: false,
         tabOffsetTop: 0,
         isTabFixed: false,
-        saveY: 0
+        saveY: 0,
+
       }
     },
     computed: {
@@ -79,6 +80,7 @@
     },
     deactivated() {
       this.saveY = this.$refs.scroll.getScrollY()
+
     },
     created() {
       // 1.请求多个数据
