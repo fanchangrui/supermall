@@ -29,9 +29,9 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ![图片](https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/shouye.PNG)
-!(https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/sy.PNG)
-!(https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/fenlei.PNG)
-!(https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/xiangqin.PNG)
-!(https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/xq.PNG)
-!(https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/gwc.PNG)
-!(https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/wd.PNG)
+![图片](https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/sy.PNG)
+![图片](https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/fenlei.PNG)
+![图片](https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/xiangqin.PNG)
+![图片](https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/xq.PNG)
+![图片](https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/gwc.PNG)
+![图片](https://raw.githubusercontent.com/fanchangrui/supermall/main/src/assets/mdimage/wd.PNG)
