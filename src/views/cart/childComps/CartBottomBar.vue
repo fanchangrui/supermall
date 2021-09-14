@@ -1,6 +1,6 @@
 <<template>
   <div class="bottom-menu">
-    <CheckButton class="select-all" @checkBtnClick="checkBtnClick" v-model="isSelectAll"></CheckButton>
+    <CheckButton class="select-all" @click.native="checkClick" v-model="isSelectAll"></CheckButton>
     <span>全选</span>
     <span class="total-price">合计: ¥{{totalPrice}}</span>
     <span class="buy-product">去计算({{checkedLength}})</span>
@@ -24,7 +24,23 @@ export default {
       },0).toFixed(2)
     },
     checkedLength(){
+
       return this.$store.state.cartList.filter(item => item.checked).length
+    },
+    isSelectAll(){
+      if(this.$store.state.cartList.length===0){
+        return false
+      }
+     return  !(this.$store.state.cartList.filter(item =>!item.checked).length)
+    }
+  },
+  methods:{
+    checkClick(){
+      if(this.isSelectAll){
+        this.$store.state.cartList.forEach(item => item.checked = false)
+      }else {
+        this.$store.state.cartList.forEach(item => item.checked = true)
+      }
     }
   }
 }

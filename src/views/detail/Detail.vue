@@ -11,6 +11,7 @@
       <goods-list ref="list" :goods="recommends"/>
     </scroll>
     <detail-bottom-bar @addCart="addToCart"/>
+    <Toast :message="message" :show="show"/>
   </div>
 </template>
 
@@ -30,6 +31,7 @@ import {getRecommend} from "network/detail";
 import GoodsList from "components/content/goods/GoodsList";
 import {debounce} from "common/utils";
 import DetailBottomBar from "views/detail/childComps/DetailBottomBar";
+import Toast from "components/common/toast/Toast";
 
 export default {
   name: "Detail",
@@ -43,7 +45,9 @@ export default {
     Scroll,
     DetailCommentInfo,
     GoodsList,
-    DetailBottomBar
+    DetailBottomBar,
+    Toast
+
   },
   data() {
     return {
@@ -56,7 +60,9 @@ export default {
       commentInfo: {},
       recommends: [],
       themeTopYs: [],
-      getThemeYopY: null
+      getThemeYopY: null,
+      message:'',
+      show:false
 
     }
   },
@@ -121,7 +127,15 @@ export default {
       product.iid = this.iid
       console.log(product)
 
-      this.$store.dispatch('addCart',product)
+      this.$store.dispatch('addCart',product).then(res =>{
+        this.show=true
+        this.message=res
+        setTimeout(()=>{
+          this.show=false
+          this.message=''
+        },1500)
+      /*  this.$toast.show(res,2000)*/
+      })
 
     },
 
