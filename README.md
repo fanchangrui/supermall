@@ -27,3 +27,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+![avator](https://github.com/fanchangrui/supermall/blob/main/src/assets/mdimage/shouye.PNG)
